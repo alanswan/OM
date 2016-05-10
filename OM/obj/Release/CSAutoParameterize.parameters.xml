@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-OM-20160407082859.mdf;Initial Catalog=aspnet-OM-20160407082859;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="\\\\Mac\\Home\\Documents\\Visual\ Studio\ 2015\\Projects\\OM\\OM\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="omproEntities-Web.config Connection String" description="omproEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/EF.OM.csdl|res://*/EF.OM.ssdl|res://*/EF.OM.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=mssql2.gear.host;initial catalog=ompro;user id=ompro;password=Co31?i!8iF74;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="\\\\Mac\\Home\\Documents\\Visual\ Studio\ 2015\\Projects\\OM\\OM\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='omproEntities']/@connectionString" />
+  </parameter>
+</parameters>

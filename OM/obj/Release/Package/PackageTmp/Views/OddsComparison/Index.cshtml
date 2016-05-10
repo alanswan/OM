@@ -1,0 +1,64 @@
+﻿
+@model OM.Models.OMViewModel
+
+@{
+    ViewBag.Title = "Odds Comparison Software";
+}
+<br /><br />
+<h2>Manchester United vs AFC Bournemouth</h2>
+<h3>Sunday 15th May - 15:00</h3>
+<br /><br />
+<div id="grid"></div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            kendo.culture("en-GB");
+            $("#grid").kendoGrid({
+                columns: [{
+                    field: "BetName",
+                    title: " "
+                }, {
+                    field: "WilliamHill",
+                    title: "William Hill",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/williamhill.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "Betfred",
+                    title: "Betfred",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/betfred.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "Coral",
+                    title: "Coral",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/coral.jpg'/>",
+                    width: "120px"
+                }],
+                sortable: false,
+
+                filterable: false,
+                dataSource: {
+                    transport: {
+                        read: "/OddsComparison/GetOddsData",
+                        dataType: "json"
+                        // enable server paging
+                    },
+                    pageSize: 20,
+                    schema: {
+                        data: "data", // records are returned in the "data" field of the response
+                        total: "total" // total number of records is in the "total" field of the response
+                    },
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+
+
+
