@@ -633,6 +633,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\betdaq.jpg" />
+    <Content Include="Images\betfair.jpg" />
     <Content Include="Images\betfred.jpg" />
     <Content Include="Images\coral.jpg" />
     <Content Include="Images\smarkets.jpg" />
