@@ -1,0 +1,249 @@
+﻿@model OM.Models.OMViewModel
+
+@{
+    ViewBag.Title = "Oddsmatching Software";
+}
+
+<div id="om">
+    <div class="row">
+        <label class="col-sm-2" for="dropdownlistBookmaker">Bookmaker:  </label><input class="col-sm-3" style="background-color:transparent; margin-left:10px;" id="dropdownlistBookmaker" /><div class="col-sm-6"></div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <label class="col-sm-2" for="dropdownlistExchange">Exchange:  </label><input class="col-sm-3" style="background-color:transparent; margin-left:10px;" id="dropdownlistExchange" /><div class="col-sm-3"></div><button onclick="om.refreshOdds()" style="float:right; margin-right:15px;" class="col-sm-3">Refresh Odds</button>
+    </div>
+    <br /><br />
+    <div id="grid"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="calcModal" tabindex="-1" role="dialog" aria-labelledby="calcModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="calcModalLabel">Calculator</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+
+                            <input id="betTypeDDL" style="width:300px;" />
+                            <br />
+                            <div class="row" style="margin-top:30px;">
+                                <div class="calc-row back-row">
+                                    <label class="col-xs-3 calc-label" for="backStakeInput">Back Stake:  </label><input class="col-xs-2 back-input" s id="backStakeInput" />
+                                    <div class="col-xs-1"></div>
+                                    <div id="stake-warning-message" style="display:none" class="col-xs-7">
+                                        <p class="text-warning">Please enter a numeric value</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="calc-row back-row">
+                                    <label class="col-xs-3 calc-label" for="backOddsInput">Back Odds:  </label><input class="col-xs-2 back-input" id="backOddsInput" />
+                                    <div id="bookmaker-odds-warning-message" style="display:none" class="col-xs-7">
+                                        <p class="text-warning">Please enter a numeric value</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="calc-row lay-row">
+                                    <label class="col-xs-3 calc-label" for="layOddsInput">Lay Odds:  </label><input class="col-xs-2  lay-input" id="layOddsInput" /><div class="col-xs-7"></div>
+                                    <div class="col-xs-1"></div><label class="col-xs-3 calc-label" for="comInput">Exchange Commission:  </label><input class="col-xs-2  lay-input" id="comInput" />
+                                    <div id="exchange-odds-warning-message" style="display:none" class="col-xs-7">
+                                        <p style="margin-left:45%" class="text-warning">Please enter a numeric value</p>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="row calc-row">
+                    <label class="col-xs-3" for="comInput">Exchange Commission:  </label><input style="margin-left:10px;" id="comInput" />
+                </div>*@
+                            <div class="row" style="margin-top:30px;">
+                                <button style="width:100%" onclick="om.calculate()" class="btn btn-primary calc-btn">Calculate</button>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <p id="eStake"></p>
+                            </div>
+                            <div class="row">
+                                <p id="liability"></p>
+                            </div>
+                            <div class="row">
+                                <p id="bwin"></p>
+                            </div>
+                            <div class="row">
+                                <p id="ewin"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default calc-btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            //var safeUrl = 'http://www.mycheekyprofits.com/oddsmatcher';
+
+            //if(window.top.location.host !== safeUrl) {
+            //    document.body.innerHTML = "Access Denied";
+            //}
+            //else{
+
+            
+
+                om.startLoading();
+
+                $("#dropdownlistBookmaker").kendoDropDownList({
+                    dataTextField: "BookmakerName",
+                    dataValueField: "BookmakerId",
+                    dataSource: @Html.Raw(Json.Encode(Model.Bookmakers)),
+                    change: function(e) {
+                        om.changeBookmaker(this.text());
+                    }
+                });
+
+                $("#dropdownlistExchange").kendoDropDownList({
+                    dataTextField: "BookmakerName",
+                    dataValueField: "BookmakerId",
+                    dataSource: @Html.Raw(Json.Encode(Model.Exchanges)),
+                    change: function(e) {
+                        om.changeExchange(this.text());
+                    }
+                });
+
+                $('<div class="k-loading-mask" style="width: 100%; height: 100%; top: 0px; left: 0px;"><span class="k-loading-text">Loading...</span><div class="k-loading-image"></div><div class="k-loading-color"></div></div>').appendTo('#grid .k-grid-content');
+
+                $("#betTypeDDL").kendoDropDownList({
+                    dataSource: [
+                      { id: 1, name: "Normal" },
+                      { id: 2, name: "Free Bet (Stake Not Returned)" },
+                      { id: 3, name: "Free Bet (Stake Returned)" }
+                    ],
+                    dataTextField: "name",
+                    dataValueField: "id",
+                    index: 0,
+                    change: om.ddlChange
+                });
+
+                kendo.culture("en-GB");
+                $("#grid").kendoGrid({
+                    columns: [{
+                        field: "EventType",
+                        title: " ",
+                        template: "<img class='img-responsive' src='../Images/#: EventType #.png'/>",
+                        filterable: false,
+                        sortable:false,
+                        width:40
+                    },{
+                        field: "EventDate",
+                        title: "Date",
+                        filterable: false,
+                        sortable:false,
+                        type: 'date',
+                        format: "{0:dd/MM/yyyy}"
+                    },{
+                        field: "EventTime",
+                        title: "Time",
+                        filterable: false,
+                        sortable:false,
+                        width:60
+                    },{
+                        field: "EventName",
+                        title: "Event",
+                        template: "#: EventName #<br/>#: Competition #",
+                        filterable: false,
+                        sortable: false
+                    }, {
+                        field: "Bet",
+                        title: "Bet",
+                        filterable: false,
+                        sortable: false
+                    }, {
+                        field: "Rating",
+                        title: "Rating",
+                        filterable: true,
+                        type: 'number',
+                        width: 60,
+                        filterable: false
+                    }, {
+                        field: "Bookmaker",
+                        title: " ",
+                        template: "<img class='img-responsive' src='../Images/#: Bookmaker.replace(' ', '').toLowerCase() #.jpg'/>",
+                        filterable: false,
+                        sortable:false,
+                        width: 100
+                    },  {
+                        field: "BookmakerOdds",
+                        title: "Bookmaker Odds",
+                        filterable: true,
+                        type: 'number',
+                        width: 100
+                    }, {
+                        field: "ExchangeOdds",
+                        title: "Exchange Odds",
+                        filterable: true,
+                        type: 'number',
+                        width: 100
+                    },{
+                        field: "Exchange",
+                        title: " ",
+                        template: "<img class='img-responsive' src='../Images/#: Exchange.replace(' ', '').toLowerCase() #.jpg'/>",
+                        filterable: false,
+                        sortable: false,
+                        width: 100
+                    },{
+                        field: "MoneyInMarket",
+                        title: "Money In Market" ,
+                        format: "{0:c}",
+                        filterable: false,
+                        width: 100
+                    },
+                    //{
+                    //    field: "URL",
+                    //    title: "Link to Offer" ,
+                    //    filterable: false,
+                    //    template: "<a href='#: URL #'><button onclick='openModal()' type='button' class='btn btn-default'><i class='fa fa-external-link' aria-hidden='true'></i></button></a>"
+                    //},
+                    {
+                        title: " " ,
+                        filterable: false,
+                        //template: "<i class='' onclick='openModal()'></i>"
+                        template: "<button onclick='om.openModal(this)' type='button' class='btn btn-default'><i class='fa fa-calculator' aria-hidden='true'></i></button>",
+                        width: 60
+                    }],
+                    sortable: {
+                        mode: "multiple"
+                    },
+                    scrollable: false,
+                    filterable: true,
+                    dataSource: {
+                        transport: {
+                            read: "/Odds/GetOddsDataTrial?bookmaker=All&exchange=All",
+                            dataType: "json"
+                        
+                        },
+                        //pageSize: 20,
+                        schema: {
+                            data: "data", // records are returned in the "data" field of the response
+                            total: "total" // total number of records is in the "total" field of the response
+                        },
+                        //serverPaging: true, 
+                    }
+                    ,
+                    pageable: {
+                        pageSize: 20
+                    },
+                    dataBound: function(e){
+                        $.unblockUI();
+                    }
+                });
+            //}
+        });
+    </script>
+}
+

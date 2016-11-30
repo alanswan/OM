@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Bookmakers">
       <EntityTypeMapping TypeName="omproModel.Bookmaker">
         <MappingFragment StoreEntitySet="Bookmakers">
+          <ScalarProperty Name="ExchangeFlag" ColumnName="ExchangeFlag" />
           <ScalarProperty Name="BookmakerId" ColumnName="BookmakerId" />
           <ScalarProperty Name="BookmakerName" ColumnName="BookmakerName" />
         </MappingFragment>
@@ -12,6 +13,8 @@
     <EntitySetMapping Name="ExchangeMatches">
       <EntityTypeMapping TypeName="omproModel.ExchangeMatch">
         <MappingFragment StoreEntitySet="ExchangeMatches">
+          <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
           <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
           <ScalarProperty Name="URL" ColumnName="URL" />
           <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
@@ -36,6 +39,10 @@
     <EntitySetMapping Name="Matches">
       <EntityTypeMapping TypeName="omproModel.Match">
         <MappingFragment StoreEntitySet="Matches">
+          <ScalarProperty Name="LS_ID" ColumnName="LS_ID" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
           <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
           <ScalarProperty Name="URL" ColumnName="URL" />
           <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
@@ -72,6 +79,88 @@
         <MappingFragment StoreEntitySet="TeamsNotFound">
           <ScalarProperty Name="TeamId" ColumnName="TeamId" />
           <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Competitions">
+      <EntityTypeMapping TypeName="omproModel.Competition">
+        <MappingFragment StoreEntitySet="Competitions">
+          <ScalarProperty Name="DefaultName" ColumnName="DefaultName" />
+          <ScalarProperty Name="OMCompetitionId" ColumnName="OMCompetitionId" />
+          <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+          <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CompetitionsNotFounds">
+      <EntityTypeMapping TypeName="omproModel.CompetitionsNotFound">
+        <MappingFragment StoreEntitySet="CompetitionsNotFound">
+          <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+          <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Errors">
+      <EntityTypeMapping TypeName="omproModel.Error">
+        <MappingFragment StoreEntitySet="Errors">
+          <ScalarProperty Name="bookmaker" ColumnName="bookmaker" />
+          <ScalarProperty Name="ErrorDateTime" ColumnName="ErrorDateTime" />
+          <ScalarProperty Name="Error1" ColumnName="Error" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExchangeRaces">
+      <EntityTypeMapping TypeName="omproModel.ExchangeRace">
+        <MappingFragment StoreEntitySet="ExchangeRaces">
+          <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
+          <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Odds" ColumnName="Odds" />
+          <ScalarProperty Name="Horse" ColumnName="Horse" />
+          <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+          <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+          <ScalarProperty Name="BookmakerId" ColumnName="BookmakerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoadTimes">
+      <EntityTypeMapping TypeName="omproModel.LoadTime">
+        <MappingFragment StoreEntitySet="LoadTimes">
+          <ScalarProperty Name="bookmaker" ColumnName="bookmaker" />
+          <ScalarProperty Name="LoadDateTime" ColumnName="LoadDateTime" />
+          <ScalarProperty Name="ElapsedTime" ColumnName="ElapsedTime" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Races">
+      <EntityTypeMapping TypeName="omproModel.Race">
+        <MappingFragment StoreEntitySet="Races">
+          <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
+          <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Odds" ColumnName="Odds" />
+          <ScalarProperty Name="Horse" ColumnName="Horse" />
+          <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+          <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+          <ScalarProperty Name="BookmakerId" ColumnName="BookmakerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

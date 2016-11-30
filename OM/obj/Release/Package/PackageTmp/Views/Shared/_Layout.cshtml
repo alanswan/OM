@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css">
+    <link href="~/Content/kendo/2016.1.226/kendo.default.min.css" rel="stylesheet" />
+    <link href="~/Content/kendo/2016.1.226/kendo.common.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -27,7 +29,7 @@
             </div>
         </div>
     </div>*@
-    <div class="container body-content">
+    <div class="fluid-container body-content">
         @RenderBody()
         <hr />
         @*<footer>

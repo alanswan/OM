@@ -27,9 +27,19 @@ namespace OM.Controllers
             return View();
         }
 
-        public ActionResult ManchesterUnitedvAFCBournemouth()
+        public ActionResult Match(int matchId)
         {
-            return View("Index");
+            var match = db.Matches.Where(x => x.MatchId == matchId).First();
+            OddsComparisonPageViewModel viewModel = new OddsComparisonPageViewModel()
+            {
+                Competition = match.CompetitionName,
+                MatchDate = match.Date,
+                MatchTime = match.Time,
+                MatchName = match.Name,
+                MatchId = matchId
+            };
+            return View("Match", viewModel);
+
         }
 
         //public ActionResult GetOddsData()
@@ -38,46 +48,70 @@ namespace OM.Controllers
         //    return Json(odds, JsonRequestBehavior.AllowGet);
         //}
 
-        public ActionResult GetOddsData()
+        public ActionResult GetOddsData(int matchId)
         {
-            var odds = (from m1 in db.Matches
-                        join m2 in db.Matches on new { MatchId = 5655037, Bet = "Manchester United" } equals new { m2.MatchId, m2.Bet }
-                        join m3 in db.Matches on new { MatchId = 294038724, Bet = "Man Utd" } equals new { m3.MatchId, m3.Bet }
-                        where m1.MatchId == 363618136 & m1.Bet == "Manchester United"
+            var odds = (from m1 in db.Matches //bet365
+                       // join m2 in db.Matches on new { MatchId = matchId, Bet = m1.Team1Name, Bookmaker = 21 } equals new { m2.MatchId, m2.Bet, Bookmaker = m2.BookmakerId }
+                        join m3 in db.Matches on new { MatchId = matchId, Bet = m1.Team1Name, Bookmaker = 81 } equals new { m3.MatchId, m3.Bet, Bookmaker = m3.BookmakerId }
+                        join m4 in db.Matches on new { MatchId = matchId, Bet = m1.Team1Name, Bookmaker = 34 } equals new { m4.MatchId, m4.Bet, Bookmaker = m4.BookmakerId }
+                        join m5 in db.Matches on new { MatchId = matchId, Bet = m1.Team1Name, Bookmaker = 42 } equals new { m5.MatchId, m5.Bet, Bookmaker = m5.BookmakerId }
+                        join m6 in db.Matches on new { MatchId = matchId, Bet = m1.Team1Name, Bookmaker = 38 } equals new { m6.MatchId, m6.Bet, Bookmaker = m6.BookmakerId }
+                        join m7 in db.Matches on new { MatchId = matchId, Bet = m1.Team1Name, Bookmaker = 93 } equals new { m7.MatchId, m7.Bet, Bookmaker = m7.BookmakerId }
+                        where m1.MatchId == matchId & m1.Bet == m1.Team1Name & m1.BookmakerId == 8
                         select new OddsComparisonViewModel()
                         {
                             EventName = m1.Name,
                             BetName = m1.Bet,
-                            WilliamHill = m1.Odds.Value,
-                            Betfred = m2.Odds.Value,
-                            Coral = m3.Odds.Value
-                        });
+                            Ladbrokes = m3.Odds.Value,
+                            Bet365 = m1.Odds.Value,
+                            StanJames = m4.Odds.Value,
+                            Eight88Sport = m6.Odds.Value,
+                            BetVictor = m5.Odds.Value,
+                            SkyBet = m7.Odds.Value
+                            //One88Bet = m2.Odds.Value
+                        }).Distinct().Take(1);
 
-            var odds2 = (from m1 in db.Matches
-                        join m2 in db.Matches on new { MatchId = 5655037, Bet = "AFC Bournemouth" } equals new { m2.MatchId, m2.Bet }
-                        join m3 in db.Matches on new { MatchId = 294038725, Bet = "Bournemouth" } equals new { m3.MatchId, m3.Bet }
-                        where m1.MatchId == 363618136 & m1.Bet == "AFC Bournemouth"
-                         select new OddsComparisonViewModel()
-                        {
-                            EventName = m1.Name,
-                            BetName = m1.Bet,
-                            WilliamHill = m1.Odds.Value,
-                            Betfred = m2.Odds.Value,
-                            Coral = m3.Odds.Value
-                        });
-
-            var odds3 = (from m1 in db.Matches
-                        join m2 in db.Matches on new { MatchId = 5655037, Bet = "Draw" } equals new { m2.MatchId, m2.Bet }
-                        join m3 in db.Matches on new { MatchId = 294038723, Bet = "Draw" } equals new { m3.MatchId, m3.Bet }
-                        where m1.MatchId == 363618136 & m1.Bet == "Draw"
+            var odds2 = (from m1 in db.Matches //bet365
+                        //join m2 in db.Matches on new { MatchId = matchId, Bet = m1.Team2Name, Bookmaker = 21 } equals new { m2.MatchId, m2.Bet, Bookmaker = m2.BookmakerId }
+                        join m3 in db.Matches on new { MatchId = matchId, Bet = m1.Team2Name, Bookmaker = 81 } equals new { m3.MatchId, m3.Bet, Bookmaker = m3.BookmakerId }
+                         join m4 in db.Matches on new { MatchId = matchId, Bet = m1.Team2Name, Bookmaker = 34 } equals new { m4.MatchId, m4.Bet, Bookmaker = m4.BookmakerId }
+                         join m5 in db.Matches on new { MatchId = matchId, Bet = m1.Team2Name, Bookmaker = 42 } equals new { m5.MatchId, m5.Bet, Bookmaker = m5.BookmakerId }
+                         join m6 in db.Matches on new { MatchId = matchId, Bet = m1.Team2Name, Bookmaker = 38 } equals new { m6.MatchId, m6.Bet, Bookmaker = m6.BookmakerId }
+                         join m7 in db.Matches on new { MatchId = matchId, Bet = m1.Team2Name, Bookmaker = 93 } equals new { m7.MatchId, m7.Bet, Bookmaker = m7.BookmakerId }
+                         where m1.MatchId == matchId & m1.Bet == m1.Team2Name & m1.BookmakerId == 8
                         select new OddsComparisonViewModel()
                         {
                             EventName = m1.Name,
                             BetName = m1.Bet,
-                            WilliamHill = m1.Odds.Value,
-                            Betfred = m2.Odds.Value,
-                            Coral = m3.Odds.Value
-                        });
+                            Ladbrokes = m3.Odds.Value,
+                            Bet365 = m1.Odds.Value,
+                            StanJames = m4.Odds.Value,
+                            Eight88Sport = m6.Odds.Value,
+                            BetVictor = m5.Odds.Value,
+                            SkyBet = m7.Odds.Value
+                            //One88Bet = m2.Odds.Value
+                        }).Distinct().Take(1);
+
+            var odds3 = (from m1 in db.Matches //bet365
+                       // join m2 in db.Matches on new { MatchId = matchId, Bet = "Draw", Bookmaker = 21 } equals new { m2.MatchId, m2.Bet, Bookmaker = m2.BookmakerId }
+                        join m3 in db.Matches on new { MatchId = matchId, Bet = "Draw", Bookmaker = 81 } equals new { m3.MatchId, m3.Bet, Bookmaker = m3.BookmakerId }
+                         join m4 in db.Matches on new { MatchId = matchId, Bet = "Draw", Bookmaker = 34 } equals new { m4.MatchId, m4.Bet, Bookmaker = m4.BookmakerId }
+                         join m5 in db.Matches on new { MatchId = matchId, Bet = "Draw", Bookmaker = 42 } equals new { m5.MatchId, m5.Bet, Bookmaker = m5.BookmakerId }
+                         join m6 in db.Matches on new { MatchId = matchId, Bet = "Draw", Bookmaker = 38 } equals new { m6.MatchId, m6.Bet, Bookmaker = m6.BookmakerId }
+                         join m7 in db.Matches on new { MatchId = matchId, Bet = "Draw", Bookmaker = 93 } equals new { m7.MatchId, m7.Bet, Bookmaker = m7.BookmakerId }
+                         where m1.MatchId == matchId & m1.Bet == "Draw" & m1.BookmakerId == 8
+                        select new OddsComparisonViewModel()
+                        {
+                            EventName = m1.Name,
+                            BetName = m1.Bet,
+                            Ladbrokes = m3.Odds.Value,
+                            Bet365 = m1.Odds.Value,
+                            StanJames = m4.Odds.Value,
+                            Eight88Sport = m6.Odds.Value,
+                            BetVictor = m5.Odds.Value,
+                            SkyBet = m7.Odds.Value
+                            //One88Bet = m2.Odds.Value
+                        }).Distinct().Take(1);
 
             var count = odds.Union(odds2).Union(odds3).Count();
             var data = odds.Union(odds2).Union(odds3).ToList();

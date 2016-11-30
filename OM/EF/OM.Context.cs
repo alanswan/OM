@@ -30,5 +30,11 @@ namespace OM.EF
         public virtual DbSet<Match> Matches { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<TeamsNotFound> TeamsNotFounds { get; set; }
+        public virtual DbSet<Competition> Competitions { get; set; }
+        public virtual DbSet<CompetitionsNotFound> CompetitionsNotFounds { get; set; }
+        public virtual DbSet<Error> Errors { get; set; }
+        public virtual DbSet<ExchangeRace> ExchangeRaces { get; set; }
+        public virtual DbSet<LoadTime> LoadTimes { get; set; }
+        public virtual DbSet<Race> Races { get; set; }
     }
 }

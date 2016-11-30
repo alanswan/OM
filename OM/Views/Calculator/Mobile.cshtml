@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row">
+
+        <input id="betTypeDDL" style="width:200px;" />
+        <br />
+        <div class="row" style="margin-top:30px;">
+            <div class="calc-row-mobile back-row">
+                <label class="col-xs-12 calc-label" for="backStakeInput">Back Stake:  </label>
+                <input class="col-xs-12 back-input" s id="backStakeInput" />
+
+                <div id="stake-warning-message" style="display:none" class="col-xs-12">
+                    <p class="text-warning">Please enter a numeric value</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="calc-row-mobile back-row">
+                <label class="col-xs-12 calc-label" for="backOddsInput">Back Odds:  </label>
+                <input class="col-xs-12 back-input" id="backOddsInput" />
+                <div id="bookmaker-odds-warning-message" style="display:none" class="col-xs-12">
+                    <p class="text-warning">Please enter a numeric value</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="calc-row-mobile-big lay-row">
+                <label class="col-xs-12 calc-label" for="layOddsInput">Lay Odds:  </label>
+                <input class="col-xs-12  lay-input" id="layOddsInput" />
+                <div id="exchange-odds-warning-message" style="display:none" class="col-xs-12">
+                    <p class="text-warning">Please enter a numeric value</p>
+                </div>
+                <label style="margin-top:10px;" class="col-xs-12 calc-label" for="comInput">Exchange Commission:  </label>
+                <input class="col-xs-12  lay-input" id="comInput" />
+
+            </div>
+        </div>
+        @*<div class="row calc-row">
+            <label class="col-xs-3" for="comInput">Exchange Commission:  </label><input style="margin-left:10px;" id="comInput" />
+        </div>*@
+        <div class="row" style="margin-top:30px;">
+            <button style="width:100%" onclick="om.calculate()" class="btn btn-primary calc-btn">Calculate</button>
+        </div>
+        <div class="row" style="margin-top:10px;">
+            <p id="eStake"></p>
+        </div>
+        <div class="row">
+            <p id="liability"></p>
+        </div>
+        <div class="row">
+            <p id="bwin"></p>
+        </div>
+        <div class="row">
+            <p id="ewin"></p>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#betTypeDDL").kendoDropDownList({
+                dataSource: [
+                  { id: 1, name: "Normal" },
+                  { id: 2, name: "Free Bet (Stake Not Returned)" },
+                  { id: 3, name: "Free Bet (Stake Returned)" }
+                ],
+                dataTextField: "name",
+                dataValueField: "id",
+                index: 0,
+                change: om.ddlChange
+            });
+        });
+    </script>
+}

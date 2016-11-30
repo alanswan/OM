@@ -11,6 +11,32 @@
           </Key>
           <Property Name="BookmakerId" Type="int" Nullable="false" />
           <Property Name="BookmakerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ExchangeFlag" Type="bit" />
+        </EntityType>
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OMCompetitionId" Type="int" Nullable="false" />
+          <Property Name="DefaultName" Type="bit" />
+        </EntityType>
+        <EntityType Name="CompetitionsNotFound">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompetitionName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Errors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Error" Type="varchar(max)" Nullable="false" />
+          <Property Name="ErrorDateTime" Type="datetime" />
+          <Property Name="bookmaker" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="ExchangeMatches">
           <Key>
@@ -34,6 +60,38 @@
           <Property Name="MoneyInMarket" Type="decimal" Precision="10" Scale="2" />
           <Property Name="URL" Type="varchar" MaxLength="500" />
           <Property Name="MobileURL" Type="varchar" MaxLength="500" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="UploadID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="ExchangeRaces">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RaceId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="BookmakerId" Type="int" Nullable="false" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="CompetitionName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Horse" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Odds" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+          <Property Name="Time" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="500" />
+          <Property Name="MobileURL" Type="varchar" MaxLength="500" />
+          <Property Name="MoneyInMarket" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="UploadID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="LoadTimes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ElapsedTime" Type="int" Nullable="false" />
+          <Property Name="LoadDateTime" Type="datetime" />
+          <Property Name="bookmaker" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Matches">
           <Key>
@@ -57,6 +115,31 @@
           <Property Name="MoneyInMarket" Type="decimal" Precision="10" Scale="2" />
           <Property Name="URL" Type="varchar" MaxLength="500" />
           <Property Name="MobileURL" Type="varchar" MaxLength="500" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="UploadID" Type="uniqueidentifier" />
+          <Property Name="Timestamp" Type="int" />
+          <Property Name="LS_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Races">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RaceId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="BookmakerId" Type="int" Nullable="false" />
+          <Property Name="CompetitionId" Type="int" Nullable="false" />
+          <Property Name="CompetitionName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Horse" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Odds" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+          <Property Name="Time" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="500" />
+          <Property Name="MobileURL" Type="varchar" MaxLength="500" />
+          <Property Name="MoneyInMarket" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="UploadID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Teams">
           <Key>
@@ -76,8 +159,14 @@
         </EntityType>
         <EntityContainer Name="omproModelStoreContainer">
           <EntitySet Name="Bookmakers" EntityType="Self.Bookmakers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompetitionsNotFound" EntityType="Self.CompetitionsNotFound" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Errors" EntityType="Self.Errors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExchangeMatches" EntityType="Self.ExchangeMatches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExchangeRaces" EntityType="Self.ExchangeRaces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoadTimes" EntityType="Self.LoadTimes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Matches" EntityType="Self.Matches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Races" EntityType="Self.Races" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeamsNotFound" EntityType="Self.TeamsNotFound" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -91,6 +180,7 @@
           </Key>
           <Property Name="BookmakerId" Type="Int32" Nullable="false" />
           <Property Name="BookmakerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExchangeFlag" Type="Boolean" />
         </EntityType>
         <EntityType Name="ExchangeMatch">
           <Key>
@@ -114,6 +204,8 @@
           <Property Name="MoneyInMarket" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="MobileURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadID" Type="Guid" />
         </EntityType>
         <EntityType Name="Match">
           <Key>
@@ -137,6 +229,10 @@
           <Property Name="MoneyInMarket" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="MobileURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadID" Type="Guid" />
+          <Property Name="Timestamp" Type="Int32" />
+          <Property Name="LS_ID" Type="Int64" />
         </EntityType>
         <EntityType Name="Team">
           <Key>
@@ -160,7 +256,89 @@
           <EntitySet Name="Matches" EntityType="Self.Match" />
           <EntitySet Name="Teams" EntityType="Self.Team" />
           <EntitySet Name="TeamsNotFounds" EntityType="Self.TeamsNotFound" />
+          <EntitySet Name="Competitions" EntityType="omproModel.Competition" />
+          <EntitySet Name="CompetitionsNotFounds" EntityType="omproModel.CompetitionsNotFound" />
+          <EntitySet Name="Errors" EntityType="omproModel.Error" />
+          <EntitySet Name="ExchangeRaces" EntityType="omproModel.ExchangeRace" />
+          <EntitySet Name="LoadTimes" EntityType="omproModel.LoadTime" />
+          <EntitySet Name="Races" EntityType="omproModel.Race" />
         </EntityContainer>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OMCompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="DefaultName" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="CompetitionsNotFound">
+          <Key>
+            <PropertyRef Name="CompetitionId" />
+          </Key>
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompetitionName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Error1" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ErrorDateTime" Type="DateTime" Precision="3" />
+          <Property Name="bookmaker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ExchangeRace">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RaceId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BookmakerId" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Horse" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Odds" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MobileURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MoneyInMarket" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadID" Type="Guid" />
+        </EntityType>
+        <EntityType Name="LoadTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ElapsedTime" Type="Int32" Nullable="false" />
+          <Property Name="LoadDateTime" Type="DateTime" Precision="3" />
+          <Property Name="bookmaker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Race">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RaceId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BookmakerId" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionId" Type="Int32" Nullable="false" />
+          <Property Name="CompetitionName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Horse" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Odds" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Time" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MobileURL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MoneyInMarket" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="UploadID" Type="Guid" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -170,6 +348,7 @@
           <EntitySetMapping Name="Bookmakers">
             <EntityTypeMapping TypeName="omproModel.Bookmaker">
               <MappingFragment StoreEntitySet="Bookmakers">
+                <ScalarProperty Name="ExchangeFlag" ColumnName="ExchangeFlag" />
                 <ScalarProperty Name="BookmakerId" ColumnName="BookmakerId" />
                 <ScalarProperty Name="BookmakerName" ColumnName="BookmakerName" />
               </MappingFragment>
@@ -178,6 +357,8 @@
           <EntitySetMapping Name="ExchangeMatches">
             <EntityTypeMapping TypeName="omproModel.ExchangeMatch">
               <MappingFragment StoreEntitySet="ExchangeMatches">
+                <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
                 <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
@@ -202,6 +383,10 @@
           <EntitySetMapping Name="Matches">
             <EntityTypeMapping TypeName="omproModel.Match">
               <MappingFragment StoreEntitySet="Matches">
+                <ScalarProperty Name="LS_ID" ColumnName="LS_ID" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
                 <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
                 <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
@@ -238,6 +423,88 @@
               <MappingFragment StoreEntitySet="TeamsNotFound">
                 <ScalarProperty Name="TeamId" ColumnName="TeamId" />
                 <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="omproModel.Competition">
+              <MappingFragment StoreEntitySet="Competitions">
+                <ScalarProperty Name="DefaultName" ColumnName="DefaultName" />
+                <ScalarProperty Name="OMCompetitionId" ColumnName="OMCompetitionId" />
+                <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompetitionsNotFounds">
+            <EntityTypeMapping TypeName="omproModel.CompetitionsNotFound">
+              <MappingFragment StoreEntitySet="CompetitionsNotFound">
+                <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Errors">
+            <EntityTypeMapping TypeName="omproModel.Error">
+              <MappingFragment StoreEntitySet="Errors">
+                <ScalarProperty Name="bookmaker" ColumnName="bookmaker" />
+                <ScalarProperty Name="ErrorDateTime" ColumnName="ErrorDateTime" />
+                <ScalarProperty Name="Error1" ColumnName="Error" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExchangeRaces">
+            <EntityTypeMapping TypeName="omproModel.ExchangeRace">
+              <MappingFragment StoreEntitySet="ExchangeRaces">
+                <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
+                <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Odds" ColumnName="Odds" />
+                <ScalarProperty Name="Horse" ColumnName="Horse" />
+                <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="BookmakerId" ColumnName="BookmakerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoadTimes">
+            <EntityTypeMapping TypeName="omproModel.LoadTime">
+              <MappingFragment StoreEntitySet="LoadTimes">
+                <ScalarProperty Name="bookmaker" ColumnName="bookmaker" />
+                <ScalarProperty Name="LoadDateTime" ColumnName="LoadDateTime" />
+                <ScalarProperty Name="ElapsedTime" ColumnName="ElapsedTime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Races">
+            <EntityTypeMapping TypeName="omproModel.Race">
+              <MappingFragment StoreEntitySet="Races">
+                <ScalarProperty Name="UploadID" ColumnName="UploadID" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="MoneyInMarket" ColumnName="MoneyInMarket" />
+                <ScalarProperty Name="MobileURL" ColumnName="MobileURL" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Odds" ColumnName="Odds" />
+                <ScalarProperty Name="Horse" ColumnName="Horse" />
+                <ScalarProperty Name="CompetitionName" ColumnName="CompetitionName" />
+                <ScalarProperty Name="CompetitionId" ColumnName="CompetitionId" />
+                <ScalarProperty Name="BookmakerId" ColumnName="BookmakerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RaceId" ColumnName="RaceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

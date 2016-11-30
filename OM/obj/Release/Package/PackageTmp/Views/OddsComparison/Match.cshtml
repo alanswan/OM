@@ -1,0 +1,73 @@
+﻿@model OM.Models.OddsComparisonPageViewModel
+@{
+    ViewBag.Title = "Match";
+}
+
+<h2>@Model.Competition</h2>
+<h2>@Model.MatchName</h2>
+<h3>@Model.MatchDate.ToShortDateString()</h3>
+<h3>@Model.MatchTime</h3>
+
+<br /><br />
+<div id="grid"></div>
+
+@section scripts
+{
+<script>
+        $(document).ready(function () {
+
+            kendo.culture("en-GB");
+            $("#grid").kendoGrid({
+                columns: [{
+                    field: "BetName",
+                    title: " "
+                }, {
+                    field: "Ladbrokes",
+                    title: "Ladbrokes",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/ladbrokes.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "StanJames",
+                    title: "Stan James",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/stanjames.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "Bet365",
+                    title: "Bet 365",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/bet365.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "SkyBet",
+                    title: "SkyBet",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/skybet.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "BetVictor",
+                    title: "Bet Victor",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/betvictor.jpg'/>",
+                    width: "120px"
+                }, {
+                    field: "Eight88Sport",
+                    title: "888 Sport",
+                    headerTemplate: "<img style='width:100px; height:30px;' src='../Images/888sport.jpg'/>",
+                    width: "120px"
+                }],
+                sortable: false,
+
+                filterable: false,
+                dataSource: {
+                    transport: {
+                        read: "/OddsComparison/GetOddsData?matchId=" + '@Model.MatchId',
+                        dataType: "json"
+                        // enable server paging
+                    },
+                    pageSize: 20,
+                    schema: {
+                        data: "data", // records are returned in the "data" field of the response
+                        total: "total" // total number of records is in the "total" field of the response
+                    },
+                }
+            });
+        });
+</script>
+}

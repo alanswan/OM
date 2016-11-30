@@ -10,7 +10,8 @@ namespace OM
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-1.10.2.js",
-                        "~/Scripts/om.js"));
+                        "~/Scripts/om.js",
+                        "~/Scripts/block.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(
                         "~/Scripts/kendo/2016.1.226/kendo.all.min.js",
@@ -26,9 +27,8 @@ namespace OM
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/kendo/2016.1.226/kendo.common.min.css",
-                      "~/Content/kendo/2016.1.226/kendo.default.min.css"));
+                      "~/Content/site.css"
+                      ));
         }
     }
 }

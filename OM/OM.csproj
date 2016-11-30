@@ -235,6 +235,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CalculatorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OddsComparison.cs" />
     <Compile Include="Controllers\OddsController.cs" />
@@ -242,7 +243,22 @@
     <Compile Include="EF\Bookmaker.cs">
       <DependentUpon>OM.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\Competition.cs">
+      <DependentUpon>OM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\CompetitionsNotFound.cs">
+      <DependentUpon>OM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Error.cs">
+      <DependentUpon>OM.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\ExchangeMatch.cs">
+      <DependentUpon>OM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\ExchangeRace.cs">
+      <DependentUpon>OM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\LoadTime.cs">
       <DependentUpon>OM.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Match.cs">
@@ -262,6 +278,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Race.cs">
+      <DependentUpon>OM.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Team.cs">
       <DependentUpon>OM.tt</DependentUpon>
@@ -632,14 +651,37 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\10Bet.jpg" />
+    <Content Include="Images\188bet.jpg" />
+    <Content Include="Images\888sport.jpg" />
+    <Content Include="Images\bet365.jpg" />
     <Content Include="Images\betdaq.jpg" />
     <Content Include="Images\betfair.jpg" />
     <Content Include="Images\betfred.jpg" />
+    <Content Include="Images\betstars.png" />
+    <Content Include="Images\betvictor.jpg" />
+    <Content Include="Images\betway.jpg" />
+    <Content Include="Images\bwin.jpg" />
     <Content Include="Images\coral.jpg" />
+    <Content Include="Images\football.png" />
+    <Content Include="Images\horse-racing.png" />
+    <Content Include="Images\ladbrokes.jpg" />
+    <Content Include="Images\loading-mcp.gif" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\marathonbet.jpg" />
+    <Content Include="Images\paddypower.jpg" />
+    <Content Include="Images\skybet.jpg" />
     <Content Include="Images\smarkets.jpg" />
+    <Content Include="Images\stanjames.jpg" />
+    <Content Include="Images\sunbets.jpg" />
+    <Content Include="Images\titanbet.jpg" />
+    <Content Include="Images\totesport.jpg" />
+    <Content Include="Images\unibet.jpg" />
+    <Content Include="Images\vernons.jpg" />
     <Content Include="Images\williamhill.jpg" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Scripts\block.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -1484,6 +1526,12 @@
     <Content Include="Scripts\kendo\2016.1.226\kendo.webcomponents.min.js.map" />
     <Content Include="Scripts\kendo\2016.1.226\kendo.window.min.js.map" />
     <Content Include="Views\OddsComparison\Index.cshtml" />
+    <Content Include="Views\OddsComparison\Match.cshtml" />
+    <Content Include="Views\Calculator\Index.cshtml" />
+    <Content Include="Views\Odds\Mobile.cshtml" />
+    <Content Include="Views\Calculator\Mobile.cshtml" />
+    <Content Include="Views\Odds\Trial.cshtml" />
+    <Content Include="Views\Odds\TrialMobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

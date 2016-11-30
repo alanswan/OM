@@ -15,3 +15,101 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.calc-row{
+   height:60px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom:10px;
+    padding: 10px;
+}
+
+.calc-row-mobile{
+   height:90px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom:10px;
+    padding: 10px;
+}
+
+.calc-row-mobile-big{
+   height:165px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom:10px;
+    padding: 10px;
+}
+
+.back-row{
+    color:#808080;
+    border: solid #84c4f2 2px;
+}
+
+.lay-row{
+    color:#808080;
+    border: solid #faa0b3 2px;
+}
+
+.calc-btn,.calc-btn:visited,.calc-btn:active,.calc-btn:focus,.calc-btn:hover{
+    background-color: rgba(128, 128, 128, 0.21);
+    border: solid #808080 2px;
+    color:#000000;
+    outline:none;
+}
+
+
+.calc-label{
+    font-weight:normal;
+}
+
+.calc-input{
+    border: solid #037c5b 2px;
+}
+
+.back-input{
+    border: solid  #84c4f2 2px;
+}
+.lay-input{
+    border: solid #faa0b3 2px;
+}
+
+.calc-input:focus{
+    border: solid #F6DD05 2px;
+}
+
+.green-title{
+    color: #037c5b;
+}
+
+.loading-text{
+   font-size:1.4em;
+}
+
+.k-grid  .k-grid-header  .k-header  .k-link {
+    height: auto;
+}
+  
+.k-grid  .k-grid-header  .k-header {
+    white-space: normal;
+}
+
+.list-view-item{
+    border:solid 1px grey;
+    padding:5px;
+    margin-bottom:5px;
+}
+
+.mobile-odds{
+    font-size:18px;
+    padding-top:10px;
+}
+
+.back-odds{
+    color: #84c4f2;
+    font-weight:bold;
+}
+.lay-odds{
+    color: #faa0b3;
+    font-weight:bold;
+}
+

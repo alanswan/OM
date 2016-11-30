@@ -16,5 +16,6 @@ namespace OM.EF
     {
         public int BookmakerId { get; set; }
         public string BookmakerName { get; set; }
+        public Nullable<bool> ExchangeFlag { get; set; }
     }
 }

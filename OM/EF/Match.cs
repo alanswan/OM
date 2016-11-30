@@ -32,5 +32,9 @@ namespace OM.EF
         public Nullable<decimal> MoneyInMarket { get; set; }
         public string URL { get; set; }
         public string MobileURL { get; set; }
+        public Nullable<System.DateTime> UploadDate { get; set; }
+        public Nullable<System.Guid> UploadID { get; set; }
+        public Nullable<int> Timestamp { get; set; }
+        public Nullable<long> LS_ID { get; set; }
     }
 }
